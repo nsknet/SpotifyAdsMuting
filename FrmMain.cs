@@ -214,6 +214,14 @@ namespace SpotifyAdsMuting
         {
             if (!string.IsNullOrEmpty(_appConfig.SpotifyPath))
             {
+                if (!File.Exists(_appConfig.SpotifyPath))
+                {
+                    _appConfig.SpotifyPath = null;
+                    WriteConfig();
+                    MessageBox.Show("Cannot find spotify path, please open spotify, then quit and re-open the app");
+                    return;
+                }
+
                 try
                 {
                     var processStartInfo = new ProcessStartInfo(_appConfig.SpotifyPath);
